@@ -1,20 +1,7 @@
 # ExpressJS TypeScript CRUD API
 
-A comprehensive RESTful API built with Express.js, TypeScript, and MySQL for user management with full CRUD operations.
+ESTful API built with Express.js, TypeScript, and MySQL for user management with full CRUD operations.
 
-## 🚀 Features
-
-- **Complete CRUD Operations**: Create, Read, Update, Delete users
-- **TypeScript**: Full type safety and IntelliSense support
-- **Database Integration**: MySQL with TypeORM for seamless data management
-- **Input Validation**: Joi schemas for request validation
-- **Error Handling**: Comprehensive error middleware with custom API errors
-- **Security**: Helmet for security headers, bcrypt for password hashing
-- **Logging**: Request logging middleware
-- **Soft Deletes**: User deactivation without data loss
-- **Pagination**: Built-in pagination support for user listings
-- **Search**: User search functionality
-- **Role Management**: Admin and user role support
 
 ## 📁 Project Structure
 
