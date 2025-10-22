@@ -284,25 +284,53 @@ npm test
 
 ## 🚀 Deployment
 
-### Using Docker (Optional)
+### Using Docker
 
-Create a `Dockerfile`:
+#### Option 1: Docker Compose (Recommended)
 
-```dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-COPY dist ./dist
-EXPOSE 3000
-CMD ["node", "dist/index.js"]
-```
-
-Build and run:
+The project includes complete Docker Compose setup with MySQL and phpMyAdmin:
 
 ```bash
+# Development environment (database + phpMyAdmin only)
+npm run docker:dev
+npm run dev  # API runs locally
+
+# Production environment (all services in containers)
+npm run docker:prod
+```
+
+> See [DOCKER.md](./DOCKER.md) for comprehensive Docker documentation.
+
+#### Option 2: Standalone Docker Container
+
+For standalone deployment (requires external database):
+
+1. **Build the image:**
+```bash
+npm run build
 docker build -t express-crud-api .
-docker run -p 3000:3000 express-crud-api
+```
+
+2. **Run with environment variables:**
+```bash
+docker run -p 3000:3000 \
+  -e DB_HOST=your_database_host \
+  -e DB_USERNAME=your_db_user \
+  -e DB_PASSWORD=your_db_password \
+  -e DB_DATABASE=crud_api \
+  -e NODE_ENV=production \
+  express-crud-api
+```
+
+3. **Or use with host network (for local MySQL):**
+```bash
+# If you have MySQL running locally on host
+docker run --network=host \
+  -e DB_HOST=localhost \
+  -e DB_USERNAME=crud_user \
+  -e DB_PASSWORD=crud_password \
+  -e DB_DATABASE=crud_api \
+  express-crud-api
 ```
 
 ### Environment Variables for Production
@@ -315,13 +343,6 @@ DB_PASSWORD=your_production_password
 JWT_SECRET=your_secure_jwt_secret
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 📝 License
 
@@ -344,36 +365,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
    - Run `npm run build` to see detailed errors
    - Ensure all dependencies are installed
 
-### Getting Help
-
-If you encounter any issues:
-
-1. Check the [Issues](https://github.com/your-repo/issues) section
-2. Review the error logs in the console
-3. Ensure all prerequisites are met
-4. Check environment variable configuration
-
-## 🔮 Future Enhancements
-
-- [ ] JWT Authentication & Authorization
-- [ ] API Rate Limiting
-- [ ] File Upload Support
-- [ ] Email Notifications
-- [ ] API Documentation with Swagger
-- [ ] Unit & Integration Tests
-- [ ] Docker Compose Setup
-- [ ] CI/CD Pipeline
-- [ ] Caching with Redis
-- [ ] API Versioning
-
----
-
-## 💡 Tips for Development
-
-- Use VS Code with TypeScript extensions for better development experience
-- Enable auto-save and format on save
-- Use the built-in debugger for troubleshooting
-- Monitor the console for detailed error information
-- Use Postman or similar tools for API testing
-
-**Happy Coding! 🚀**

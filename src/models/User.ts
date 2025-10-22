@@ -68,6 +68,9 @@ export interface UserQueryDto {
 
 export class UserService {
   private get userRepository() {
+    if (!AppDataSource.isInitialized) {
+      throw new Error('Database not initialized');
+    }
     return AppDataSource.getRepository(User);
   }
 
